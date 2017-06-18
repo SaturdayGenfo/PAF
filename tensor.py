@@ -28,7 +28,7 @@ sess = tf.InteractiveSession()
 tf.global_variables_initializer().run()
 
 
-batch_xs, batch_ys = get_data(1)
+batch_xs, batch_ys = get_data(1, mnist.train)
 
 for i in range(550):
     bxs, bys = batch_xs[100*i:100*(i+1)], batch_ys[100*i:100*(i+1)]
@@ -38,4 +38,5 @@ correct_prediction = tf.equal(tf.argmax(y,1), tf.argmax(ycorr, 1))
 
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
-print(sess.run(accuracy, feed_dict={x:mnist.test.images, ycorr: mnist.test.labels}))
+a, b = get_data(1, mnist.test)
+print(sess.run(accuracy, feed_dict={x:a, ycorr: b}))

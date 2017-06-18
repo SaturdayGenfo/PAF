@@ -22,8 +22,9 @@ def down_sample(image, nbits):
         down_sampled_image[i] = np.floor((image[i] * 255) / (2**(8-nbits)))/(2**nbits-1) 
     return down_sampled_image
     
-def get_data(nbits):
-    down_sampled_images = np.zeros_like(mnist.train.images)
+def get_data(nbits, origin):
+    down_sampled_images = np.zeros_like(origin.images)
     for i in range(len(down_sampled_images)):
-        down_sampled_images[i] = down_sample(mnist.train.images[i], nbits)
-    return down_sampled_images, mnist.train.labels
+        down_sampled_images[i] = down_sample(origin.images[i], nbits)
+    return down_sampled_images, origin.labels
+    
