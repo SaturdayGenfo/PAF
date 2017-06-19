@@ -27,4 +27,10 @@ def get_data(nbits, origin):
     for i in range(len(down_sampled_images)):
         down_sampled_images[i] = down_sample(origin.images[i], nbits)
     return down_sampled_images, origin.labels
-    
+
+def get_down_sampled_batch(nbits, size):
+    batch, labels = mnist.train.next_batch(size)
+    down_sampled_images = np.zeros_like(batch)
+    for i in range(len(down_sampled_images)):
+        down_sampled_images[i] = down_sample(batch[i], nbits)
+    return down_sampled_images, labels

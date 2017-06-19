@@ -7,7 +7,7 @@ Created on Sun Jun 18 15:11:19 2017
 
 import tensorflow as tf
 
-from dataformat import mnist, get_data
+from dataformat import mnist, get_data, get_down_sampled_batch
 
 x = tf.placeholder(tf.float32, [None, 784])
 W = tf.Variable(tf.zeros([784, 10]))
@@ -28,10 +28,10 @@ sess = tf.InteractiveSession()
 tf.global_variables_initializer().run()
 
 
-batch_xs, batch_ys = get_data(1, mnist.train)
+#batch_xs, batch_ys = get_data(1, mnist.train)
 
-for i in range(550):
-    bxs, bys = batch_xs[100*i:100*(i+1)], batch_ys[100*i:100*(i+1)]
+for i in range(1000):
+    bxs, bys = get_down_sampled_batch(1, 100)
     sess.run(train_step, feed_dict={x : bxs, ycorr : bys})
     
 correct_prediction = tf.equal(tf.argmax(y,1), tf.argmax(ycorr, 1))
